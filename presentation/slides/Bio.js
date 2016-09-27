@@ -1,6 +1,5 @@
 import React from 'react'
 
-// Import Spectacle Core tags
 import {
   Appear,
   BlockQuote,
@@ -15,10 +14,7 @@ import {
   Link,
   ListItem,
   List,
-  Markdown,
-  Quote,
   Slide,
-  Spectacle,
   Text
 } from "spectacle";
 

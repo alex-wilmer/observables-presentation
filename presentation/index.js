@@ -1,9 +1,9 @@
 import React from 'react'
 import ArrowSwoosh from 'react-icons/lib/md/redo'
+import _ from 'lodash'
 
 import * as Content from './slides'
 
-// Import Spectacle Core tags
 import {
   Appear,
   BlockQuote,
@@ -46,8 +46,6 @@ const theme = createTheme({
   primary: "#ffa740"
 })
 
-console.log(Content)
-
 export default class Presentation extends React.Component {
   render() {
     return (
@@ -64,70 +62,40 @@ export default class Presentation extends React.Component {
               Reactive Programming
             </Heading>
           </Slide>
+
+          {/* These go together */}
           <Slide transition={["fade"]} bgColor="primary">
-            <Layout>
-              <Fill>
-                <Text textSize="3rem" bold>Some Event</Text>
-                <Appear><Text textSize="2.5rem">(user clicks a button)</Text></Appear>
-              </Fill>
-              <Appear>
-                <Fill>
-                  <Code textSize={`3rem`} bgColor="transparent">-----></Code>
-                </Fill>
-              </Appear>
-              <Fill>
-                <Appear><Text textSize="3rem" bold>Another Event</Text></Appear>
-                <Appear><Text textSize="2.5rem">(update DOM)</Text></Appear>
-              </Fill>
-            </Layout>
-            <Appear>
-              <Layout>
-                <Fill>
-                  <Text>
-                    <ArrowSwoosh
-                      style={{
-                        transform: `rotate(180deg)`,
-                        fontSize: `10rem`
-                      }}
-                    />
-                  </Text>
-                  <Text textSize={`2.5rem`}>
-                    View is <strong>observing</strong> button click
-                  </Text>
-                </Fill>
-              </Layout>
-            </Appear>
+            <Content.ReactiveHighLevel />
           </Slide>
+
+
+          <Slide>
+            <div style={{ display: 'flex', flexDirection: `column`, alignItems: `center` }}>
+              <Heading textSize={`4rem`} margin={`0rem 0rem 4rem 0rem`} textColor="black">
+                Popular Triggers:
+              </Heading>
+              <Code bgColor="transparent" textSize="2.2rem">
+                {`$scope.meaningOfTheUniverse = 42`}
+              </Code>
+              <br />
+              <Code bgColor="transparent" textSize="2rem">
+                {`this.setState({ meaningOfTheUniverse: 42 })`}
+              </Code>
+              <br />
+              <Code bgColor="transparent" textSize="2.2rem">
+                {`dispatch(setMeaningOfTheUniverse(42))`}
+              </Code>
+            </div>
+          </Slide>
+
           <Slide transition={["fade"]} bgColor="primary">
-            <Layout>
-              <Fill>
-                <Text textSize="3rem" bold>Some Event</Text>
-                <Text textSize="2.5rem">(user clicks a button)</Text>
-              </Fill>
-              <Fill>
-                <Code textSize={`3rem`} bgColor="transparent">-----></Code>
-              </Fill>
-              <Fill>
-                <Text textSize="3rem" bold>Another Event</Text>
-                <Text textSize="2.5rem">(update DOM)</Text>
-              </Fill>
-            </Layout>
-            <Layout>
-              <Fill>
-                <Text>
-                  <ArrowSwoosh
-                    style={{
-                      transform: `rotate(180deg)`,
-                      fontSize: `10rem`
-                    }}
-                  />
-                </Text>
-                <Text textSize={`2.5rem`}>
-                  View is <strong>observing</strong> button click
-                </Text>
-              </Fill>
-            </Layout>
+            <Content.ReactiveAssumptionPreview />
           </Slide>
+
+          <Slide transition={["fade"]} bgColor="primary">
+            <Content.ReactiveAssumption />
+          </Slide>
+
           <Slide transition={["fade"]} bgColor="#282C34">
             <Image src={images.life1.replace("/", "")} />
           </Slide>
