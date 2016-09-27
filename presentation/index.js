@@ -1,6 +1,7 @@
-// Import React
-import React from "react";
+import React from 'react'
 import ArrowSwoosh from 'react-icons/lib/md/redo'
+
+import * as Content from './slides'
 
 // Import Spectacle Core tags
 import {
@@ -22,100 +23,41 @@ import {
   Slide,
   Spectacle,
   Text
-} from "spectacle";
+} from 'spectacle'
 
-// Import image preloader util
-import preloader from "spectacle/lib/utils/preloader";
+import preloader from 'spectacle/lib/utils/preloader'
+import createTheme from 'spectacle/lib/themes/default'
 
-// Import theme
-import createTheme from "spectacle/lib/themes/default";
-
-// Require CSS
-require("normalize.css");
-require("spectacle/lib/themes/default/index.css");
-
+require('normalize.css')
+require('spectacle/lib/themes/default/index.css')
 
 const images = {
-  city: require("../assets/city.jpg"),
-  kat: require("../assets/kat.png"),
-  logo: require("../assets/formidable-logo.svg"),
-  markdown: require("../assets/markdown.png"),
-  life1: require("../assets/code-1.png"),
-  life2: require("../assets/code-2.png"),
-  life3: require("../assets/code-3.png"),
-  life4: require("../assets/code-4.png"),
-  life5: require("../assets/code-5.png"),
-  life6: require("../assets/life-6.png")
-};
+  life1: require('../assets/code-1.png'),
+  life2: require('../assets/code-2.png'),
+  life3: require('../assets/code-3.png'),
+  life4: require('../assets/code-4.png'),
+  life5: require('../assets/code-5.png'),
+  life6: require('../assets/life-6.png')
+}
 
-preloader(images);
+preloader(images)
 
 const theme = createTheme({
   primary: "#ffa740"
-});
+})
+
+console.log(Content)
 
 export default class Presentation extends React.Component {
   render() {
     return (
       <Spectacle theme={theme}>
         <Deck>
-          <Slide transition={["fade"]} bgColor="primary">
-            <Heading size={1} fit lineHeight={1} textColor="black">
-              Observables:
-            </Heading>
-            <Text textSize={`6rem`} margin="2rem 0rem">
-              Powerful Tools for Async
-            </Text>
-            <Code bgColor="transparent" textSize={`3rem`}>
-              ---o---o--x--|-->
-            </Code>
+          <Slide>
+            <Content.Title />
           </Slide>
           <Slide transition={["fade"]} bgColor="primary">
-            <Layout>
-              <Fill>
-                <Text textSize={`6rem`} margin="2rem 0rem">
-                  Alex Wilmer
-                </Text>
-                <Text textSize={`2.5rem`} bold margin="2rem 0rem">
-                  @benevolentNinja
-                </Text>
-                <Text textSize={`2.5rem`} bold margin="2rem 0rem">
-                  github.com/alex-wilmer
-                </Text>
-              </Fill>
-              <Fill>
-                <List>
-                  <ListItem textSize={`2.2rem`}>
-                    Started with Flash
-                  </ListItem>
-                  <ListItem textSize={`2.2rem`}>
-                    Learned OOP Java / Python
-                  </ListItem>
-                  <ListItem textSize={`2.2rem`}>
-                    First professional job: .NET dev
-                  </ListItem>
-                  <ListItem textSize={`2.2rem`}>
-                    Fell deeply in {`<3`} with JavaScript
-                  </ListItem>
-                  <ListItem textSize={`2.2rem`}>
-                    Work full time at OICR
-                  </ListItem>
-                  <ListItem textSize={`2.2rem`}>
-                    Mentor at Lighthouse Labs
-                  </ListItem>
-                  <ListItem textSize={`2.2rem`}>
-                    Co-founder of phrase.fm
-                  </ListItem>
-                </List>
-              </Fill>
-            </Layout>
-            <Appear>
-              <List>
-                <ListItem textSize={`3rem`}>
-                  Spends way too much time on stackoverflow
-                </ListItem>
-              </List>
-            </Appear>
+            <Content.Bio />
           </Slide>
           <Slide transition={["fade"]} bgColor="primary">
             <Heading textColor="black">
