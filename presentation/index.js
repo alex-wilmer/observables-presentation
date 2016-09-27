@@ -39,7 +39,13 @@ const images = {
   city: require("../assets/city.jpg"),
   kat: require("../assets/kat.png"),
   logo: require("../assets/formidable-logo.svg"),
-  markdown: require("../assets/markdown.png")
+  markdown: require("../assets/markdown.png"),
+  life1: require("../assets/code-1.png"),
+  life2: require("../assets/code-2.png"),
+  life3: require("../assets/code-3.png"),
+  life4: require("../assets/code-4.png"),
+  life5: require("../assets/code-5.png"),
+  life6: require("../assets/life-6.png")
 };
 
 preloader(images);
@@ -52,7 +58,7 @@ export default class Presentation extends React.Component {
   render() {
     return (
       <Spectacle theme={theme}>
-        <Deck transition={["zoom", "slide"]} transitionDuration={500}>
+        <Deck>
           <Slide transition={["fade"]} bgColor="primary">
             <Heading size={1} fit lineHeight={1} textColor="black">
               Observables:
@@ -179,6 +185,24 @@ export default class Presentation extends React.Component {
                 </Text>
               </Fill>
             </Layout>
+          </Slide>
+          <Slide transition={["fade"]} bgColor="#282C34">
+            <Image src={images.life1.replace("/", "")} />
+          </Slide>
+          <Slide bgColor="#282C34">
+            <Image src={images.life2.replace("/", "")} />
+          </Slide>
+          <Slide bgColor="#282C34">
+            <Image src={images.life3.replace("/", "")} />
+          </Slide>
+          <Slide bgColor="#282C34">
+            <Image src={images.life4.replace("/", "")} />
+          </Slide>
+          <Slide bgColor="#282C34">
+            <Image src={images.life5.replace("/", "")} />
+          </Slide>
+          <Slide bgColor="#282C34">
+            <Image src={images.life6.replace("/", "")} />
           </Slide>
         </Deck>
       </Spectacle>
