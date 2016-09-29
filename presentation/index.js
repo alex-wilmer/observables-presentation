@@ -655,7 +655,16 @@ export default class Presentation extends React.Component {
           <Slide transition={["fade"]} bgColor="primary">
             <Heading textColor="black">Observable Basics</Heading>
             <List>
-              <ListItem>a function that accepts an observer as an argument</ListItem>
+              <ListItem>
+                a function that accepts an observer as an argument<br />
+                <Appear>
+                  <span>
+                    <span style={{ position: `relative`, left: `88px` }}>
+                      (when called, permits an Observer to "subscribe" to it)
+                    </span>
+                  </span>
+                </Appear>
+              </ListItem>
               <Appear><ListItem>lazy</ListItem></Appear>
               <Appear><ListItem>synchronous or asynchronous</ListItem></Appear>
               <Appear><ListItem>emit 0 to n values</ListItem></Appear>
