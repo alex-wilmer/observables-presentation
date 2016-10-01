@@ -8,6 +8,7 @@ import Awwsearch2 from './Awwsearch2'
 import Awwsearch3 from './Awwsearch3'
 import Awwsearch4 from './Awwsearch4'
 import Awwsearch5 from './Awwsearch5'
+import Retry from './Retry'
 
 export {
   Title,
@@ -20,4 +21,5 @@ export {
   Awwsearch3,
   Awwsearch4,
   Awwsearch5,
+  Retry,
 }

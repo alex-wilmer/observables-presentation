@@ -99,6 +99,7 @@ const images = {
   checking_email: require('../assets/checking_emails.jpg'),
   marketing: require('../assets/marketing.jpg'),
   cutecat: require('../assets/cutecat.jpg'),
+  gambling: require('../assets/gambling.jpg'),
 
   rxjsLogo: require('../assets/rxjs-logo.png'),
   rxjsWebsite: require('../assets/rxjs-website.jpg'),
@@ -1441,6 +1442,63 @@ class App extends Component {
               </Fill>
             </Layout>
           </Slide>
+
+          <Slide transition={["fade"]} bgImage={images.gambling.replace("/", "")} bgDarken={0.45}>
+            <Heading textSize="5rem" style={{textAlign: `left`, marginTop: `17rem`}}>You</Heading>
+            <Heading textSize="5rem" style={{textAlign: `left`}}>Observe</Heading>
+            <Heading textSize="4.1rem" style={{textAlign: `left`}}>
+              Your Gambling Addiction
+            </Heading>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+class App extends Component {
+  gamble() {
+    let luck$ =
+      Observable.of(1, 2, 3, 4, 5)
+        .map(x => {
+          if (Math.random() > 0.5) throw Error('Better luck next time!')
+          else return x
+        } )
+        .retry(5)
+
+    luck$.subscribe(
+      val => this.setState({ luck: val }),
+      err => this.setState({ luck: err.message }),
+      () => this.setState({ luck: 'We have a winner!' })
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.gamble()}>Gamble</button>
+        {this.state.luck}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.Retry />
+              </Fill>
+            </Layout>
+          </Slide>
+
 
           <Slide transition={["fade"]} bgColor="rgb(74, 22, 84)">
             <Content.Bio />
