@@ -98,12 +98,29 @@ const images = {
   run_life: require('../assets/run_life.png'),
   checking_email: require('../assets/checking_emails.jpg'),
   marketing: require('../assets/marketing.jpg'),
+  cutecat: require('../assets/cutecat.jpg'),
 
   rxjsLogo: require('../assets/rxjs-logo.png'),
   rxjsWebsite: require('../assets/rxjs-website.jpg'),
   rxLangs: require('../assets/rx-langs.png'),
 
   rxlist: require('../assets/rxjs/list.png'),
+  rxlist1: require('../assets/rxjs/list1.png'),
+  rxlist2: require('../assets/rxjs/list2.png'),
+  rxlist3: require('../assets/rxjs/list3.png'),
+  rxlist4: require('../assets/rxjs/list4.png'),
+  rxlist5: require('../assets/rxjs/list5.png'),
+  rxlist6: require('../assets/rxjs/list6.png'),
+  rxlist7: require('../assets/rxjs/list7.png'),
+
+  rxoppage: require('../assets/rxjs/oppage.png'),
+  rxophelp: require('../assets/rxjs/ophelp.png'),
+  rxophelp2: require('../assets/rxjs/ophelp2.png'),
+  rxophelp3: require('../assets/rxjs/ophelp3.png'),
+
+  rxMarbleMerge: require('../assets/rxjs/marbleMerge.png'),
+  rxMarbleDelay: require('../assets/rxjs/marbleDelay.png'),
+
 }
 
 preloader(images)
@@ -903,29 +920,97 @@ export default class Presentation extends React.Component {
 
           <Slide transition={["fade"]} bgImage={images.rxjsWebsite.replace("/", "")} />
           <Slide transition={["fade"]} bgImage={images.rxLangs.replace("/", "")} />
-          <Slide transition={["fade"]} bgImage={images.rxlist.replace("/", "")} />
+          <Slide transition={["fade"]} bgImage={images.rxoppage.replace("/", "")} />
+          <Slide transition={["fade"]} bgImage={images.rxlist1.replace("/", "")} />
+          <Slide bgImage={images.rxlist2.replace("/", "")} />
+          <Slide bgImage={images.rxlist3.replace("/", "")} />
+          <Slide bgImage={images.rxlist4.replace("/", "")} />
+          <Slide bgImage={images.rxlist5.replace("/", "")} />
+          <Slide bgImage={images.rxlist6.replace("/", "")} />
+          <Slide bgImage={images.rxlist7.replace("/", "")} />
 
-          <Slide transition={["fade"]} bgColor="black">
+          <Slide bgColor="white">
+            <Image src={images.rxophelp.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.rxophelp2.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.rxophelp3.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.rxMarbleMerge.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.rxMarbleDelay.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textSize="3rem">Anatomy of Rx Observer & Observable</Heading>
+            <Row>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginRight: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+observer = {
+  next: val => ...,
+  error: err => ...,
+  complete: () => ...
+}
+`}            </pre>
+  <Appear>
+    <span>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+observervable$.subscribe(observer)
+
+observervable$.subscribe(
+  val => ...,
+  err => ...,
+  () => ...
+)
+`}            </pre>
+  </span>
+</Appear>
+  </Row>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
             <Heading textColor="white">
               Act II: <br /> Reactive Programming
             </Heading>
           </Slide>
 
-          <Slide transition={["fade"]} bgColor="black">
-            <pre style={{ color: `white`, fontSize: `4rem` }}>
-              x = a + b
-            </pre>
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <CodePane
+              lang="jsx"
+              style={{
+                color: `white`,
+                fontSize: `3rem`,
+              }}
+              source={
+                `x = a + b`
+              }/>
           </Slide>
 
-          <Slide transition={["fade"]} bgColor="black">
-            <pre
-              style={{
-                paddin: `5rem`,
-                color: `white`,
-                fontSize: `2rem`,
-                textAlign: `left`,
-              }}
-            >{
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+          <CodePane
+            lang="jsx"
+            style={{
+              color: `white`,
+              fontSize: `2rem`,
+          }}
+          source={
 `let a = 1, b = 2
 let x = a + b
 console.log(x)
@@ -935,17 +1020,62 @@ document.getElementById('btn').onclick = () => {
   x = a + b
   console.log(x)
 }
-`}</pre>
+`}
+  />
           </Slide>
 
-          <Slide transition={["fade"]} bgColor="black">
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+          <CodePane
+            lang="jsx"
+            style={{
+              color: `white`,
+              fontSize: `1.3rem`,
+          }}
+          source={
+`import { Observable } from 'rxjs'
+
+let b$ = Observable.of(2)
+
+let a$ = Observable.create(observer => {
+  let a = 1
+  observer.next(a)
+
+  document.getElementById('btn').onclick = () => {
+    a++
+    observer.next(a)
+  }
+})
+
+let x$ = Observable.combineLatest(a$, b$, (x, y) => x + y)
+x$.subscribe(val => console.log(val))
+`}
+  />
+          </Slide>
+
+          <Slide transition={["fade"]} bgImage={images.cutecat.replace("/", "")} bgDarken={0.45}>
+            <Heading textSize="5rem" style={{textAlign: `left`, marginTop: `17rem`}}>You</Heading>
+            <Heading textSize="5rem" style={{textAlign: `left`}}>Observe</Heading>
+            <Heading textSize="4.1rem" style={{textAlign: `left`}}>
+              Your Desire To See Cute Animals
+            </Heading>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
             <Layout>
               <Fill>
-                <pre style={{color: `white`, fontSize: `1.2rem`, textAlign: `left`, marginLeft: `-6rem`}}>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
 {`
 
 class App extends Component {
-
   componentDidMount() {
     let inputElement = document.querySelector('input')
 
@@ -965,10 +1095,349 @@ class App extends Component {
     )
   }
 `}
-                </pre>
+                />
               </Fill>
               <Fill>
                 <Content.Awwsearch />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source={`
+
+class App extends Component {
+  componentDidMount() {
+    let inputElement = document.querySelector('input')
+
+    let input$ =
+      Observable.fromEvent(inputElement, 'input')
+        .map(event => event.target.value)
+        .filter(value => value.length > 3)
+
+    input$.subscribe(text => this.setState({ text }))
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        <h2>{this.state.text}</h2>
+      </div>
+    )
+  }
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Awwsearch2 />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+
+class App extends Component {
+  componentDidMount() {
+    let inputElement = document.querySelector('input')
+
+    let input$ =
+      Observable.fromEvent(inputElement, 'input')
+        .map(event => event.target.value)
+        .filter(value => value.length > 2)
+        .debounce(() => Observable.interval(500))
+
+    input$.subscribe(text => this.setState({ text }))
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        <h2>{this.state.text}</h2>
+      </div>
+    )
+  }
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Awwsearch3 />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+
+class App extends Component {
+  componentDidMount() {
+    let input$ =
+      Observable.fromEvent(document.querySelector('input'), 'input')
+        .map(event => event.target.value)
+        .filter(value => value.length > 2)
+        .debounce(() => Observable.interval(500))
+        .flatMap(val => Observable.fromPromise(
+          fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
+            .then(res => res.json())
+        ))
+
+    input$.subscribe(img => {
+      this.setState({ images: [img, ...this.state.images] })
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        {this.state.images}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.Awwsearch4 />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+
+class App extends Component {
+  componentDidMount() {
+    let input$ =
+      Observable.fromEvent(document.querySelector('input'), 'input')
+        .map(event => event.target.value)
+        .filter(value => value.length > 2)
+        .debounce(() => Observable.interval(500))
+        .flatMap(val => Observable.fromPromise(
+          fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
+            .then(res => res.json())
+        ))
+        .flatMap(val => Observable.from(val.data.children))
+
+    input$.subscribe(img => {
+      this.setState({ images: [img, ...this.state.images] })
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        {this.state.images}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.Awwsearch4 />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+
+class App extends Component {
+  componentDidMount() {
+    let input$ =
+      Observable.fromEvent(document.querySelector('input'), 'input')
+        .map(event => event.target.value)
+        .filter(value => value.length > 2)
+        .debounce(() => Observable.interval(500))
+        .flatMap(val => Observable.fromPromise(
+          fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
+            .then(res => res.json())
+        ))
+        .flatMap(val => Observable.from(val.data.children))
+        .distinct((a, b) => a.data.id === b.data.id)
+
+    input$.subscribe(img => {
+      this.setState({ images: [img, ...this.state.images] })
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        {this.state.images}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.Awwsearch4 />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+
+class App extends Component {
+  componentDidMount() {
+    let input$ =
+      Observable.fromEvent(document.querySelector('input'), 'input')
+        .map(event => event.target.value)
+        .filter(value => value.length > 2)
+        .debounce(() => Observable.interval(500))
+        .flatMap(val => Observable.fromPromise(
+          fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
+            .then(res => res.json())
+        ))
+        .flatMap(val => Observable.from(val.data.children))
+        .distinct((a, b) => a.data.id === b.data.id)
+        .map(val => <img key={val.data.id} src={val.data.thumbnail} />)
+
+    input$.subscribe(img => {
+      this.setState({ images: [img, ...this.state.images] })
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" />
+        {this.state.images}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.Awwsearch4 />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+class App extends Component {
+  componentDidMount() {
+    let input$ = Observable.fromEvent(document.querySelector('input'), 'input')
+
+    let image$ = input$...
+
+    let ofFalse$ = input$.map(() => false)
+    let appState$ = Observable.merge(ofFalse$, image$)
+
+    appState$.subscribe(state => {
+      if (!state) this.setState({ loading: true })
+      else this.setState({
+        loading: false,
+        images: [state, ...this.state.images]
+      })
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" /> <Loader loading={this.state.loading} />
+        {this.state.images}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.Awwsearch5 />
               </Fill>
             </Layout>
           </Slide>
