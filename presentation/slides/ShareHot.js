@@ -25,8 +25,12 @@ export default class App extends Component {
   render() {
     return (
       <div style={{color:`white`, opacity: this.props.hide ? 0 : 1}}>
-        <div style={{ fontSize: `2.6rem` }}>First Subscription:  {this.state.timer1}</div>
-        <div style={{ fontSize: `2.6rem` }}>Second Subscription:  {this.state.timer2}</div>
+        <div style={{ fontSize: `2.6rem`, textAlign: `left` }}>
+          First Subscription:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.timer1}
+        </div>
+        <div style={{ fontSize: `2.6rem`, textAlign: `left` }}>
+          Second Subscription:&nbsp;{this.state.timer2}
+        </div>
       </div>
     )
   }

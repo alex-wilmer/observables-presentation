@@ -92,6 +92,10 @@ const images = {
   merge4: require('../assets/merge/merge4.png'),
   mergeComplete: require('../assets/merge/complete.png'),
 
+  sp_functions: require('../assets/stream_processing/functions.jpg'),
+  sp_arr: require('../assets/stream_processing/arr.jpg'),
+  sp_ob: require('../assets/stream_processing/ob.jpg'),
+
   you_and_life: require('../assets/you&life.png'),
   you: require('../assets/you.png'),
   wakeup: require('../assets/wake-up.jpg'),
@@ -915,6 +919,116 @@ function clone (SourceObservable) {
             <Image src={images.emailDelay2.replace("/", "")} width='700px'/>
           </Slide>
 
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textColor="white" textSize="4rem">Similar to array "operators"</Heading>
+            <pre style={{color: `rgb(235, 240, 23)`}}>Array.prototype.filter</pre>
+            <pre style={{color: `rgb(235, 240, 23)`}}>Array.prototype.map</pre>
+            <pre style={{color: `rgb(235, 240, 23)`}}>Array.prototype.reduce</pre>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textColor="white" textSize="3rem">Arrays: collection of values</Heading>
+            <Heading textColor="white" textSize="3rem" style={{marginTop:`3rem`}}>
+              Observables: collection of events over time
+            </Heading>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textColor="white" textSize="3rem">
+              Batch Processing vs. Stream Processing
+            </Heading>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#263238">
+            <Row>
+              <div>
+                <Image src={images.sp_functions.replace("/", "")} width="300px" />
+              </div>
+              <Appear>
+                <div>
+                  <Image src={images.sp_arr.replace("/", "")} width="650px" />
+                </div>
+              </Appear>
+            </Row>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#263238">
+            <Row>
+              <div>
+                <Image src={images.sp_functions.replace("/", "")} width="300px" style={{opacity: 0.3}} />
+              </div>
+              <div>
+                <Image src={images.sp_arr.replace("/", "")} width="650px" />
+              </div>
+              <div style={{
+                position: `absolute`,
+                color: `white`,
+                textAlign: `left`,
+                fontSize: `1rem`,
+                top: `-50px`,
+              }}>
+                <pre>{`// create an array`}</pre>
+                <pre>{`> odd: 1`}</pre>
+                <pre>{`> odd: 2`}</pre>
+                <pre>{`> odd: 3`}</pre>
+                <pre>{`> odd: 4`}</pre>
+                <pre>{`> odd: 5`}</pre>
+                <pre>{`// create an array`}</pre>
+                <pre>{`> addOne: 1`}</pre>
+                <pre>{`> addOne: 3`}</pre>
+                <pre>{`> addOne: 5`}</pre>
+                <pre>{`// create an array`}</pre>
+                <pre>{`> sum: 6`}</pre>
+                <pre>{`> sum: 12`}</pre>
+                <pre>{`> finished!  12`}</pre>
+              </div>
+            </Row>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#263238">
+            <Row>
+              <div>
+                <Image src={images.sp_functions.replace("/", "")} width="300px" />
+              </div>
+              <div>
+                <Image src={images.sp_ob.replace("/", "")} width="500px" />
+              </div>
+            </Row>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#263238">
+            <Row>
+              <div>
+                <Image src={images.sp_functions.replace("/", "")} width="300px" style={{opacity: 0.3}} />
+              </div>
+              <div>
+                <Image src={images.sp_ob.replace("/", "")} width="500px" />
+              </div>
+              <div style={{
+                position: `absolute`,
+                color: `white`,
+                textAlign: `left`,
+                fontSize: `1rem`,
+                top: `-50px`,
+              }}>
+                <pre>{`> odd: 1`}</pre>
+                <pre>{`> addOne: 1`}</pre>
+                <pre>{`> sum: 4`}</pre>
+                <pre>{`> finished! 4`}</pre>
+                <pre>{`> odd: 2`}</pre>
+                <pre>{`> odd: 3`}</pre>
+                <pre>{`> addOne: 3`}</pre>
+                <pre>{`> sum: 8`}</pre>
+                <pre>{`> finished! 8`}</pre>
+                <pre>{`> odd: 4`}</pre>
+                <pre>{`> odd: 5`}</pre>
+                <pre>{`> addOne: 5`}</pre>
+                <pre>{`> sum: 12`}</pre>
+                <pre>{`> finished!  12`}</pre>
+              </div>
+            </Row>
+          </Slide>
+
           <Slide transition={["fade"]} bgImage={images.marketing.replace("/", "")} bgDarken={0.45}>
             <Heading textSize="5rem" style={{textAlign: `left`}}>You</Heading>
             <Heading textSize="5rem" style={{textAlign: `left`}}>Observe</Heading>
@@ -961,13 +1075,17 @@ function clone (SourceObservable) {
               </Text>
             </Appear>
             <Appear>
-              <Text textSize='1.7rem' margin={`3rem 0rem 0rem 0rem`} textColor="white">
-                <pre>delay(10, map(addOne, filter(odd, Observable)))</pre>
+              <Text textSize='1.7rem' margin={`3rem 0rem 0rem 0rem`}>
+                <pre style={{color: `rgb(235, 240, 23)`}}>
+                  delay(10, map(addOne, filter(odd, Observable)))
+                </pre>
               </Text>
             </Appear>
             <Appear>
-              <Text textSize='1.7rem' margin={`3rem 0rem 0rem 0rem`} textColor="white">
-                <pre>compose(delay(10), map(addOne), filter(odd))(Observable)</pre>
+              <Text textSize='1.7rem' margin={`3rem 0rem 0rem 0rem`}>
+                <pre style={{color: `rgb(235, 240, 23)`}}>
+                  compose(delay(10), map(addOne), filter(odd))(Observable)
+                </pre>
               </Text>
             </Appear>
           </Slide>
