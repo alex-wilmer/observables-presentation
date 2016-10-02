@@ -1597,7 +1597,7 @@ class App extends Component {
     let input$ =
       Observable.fromEvent(inputElement, 'input')
         .map(event => event.target.value)
-        .filter(value => value.length > 3)
+        .filter(val => val.length > 3)
 
     input$.subscribe(text => this.setState({ text }))
   }
@@ -1641,7 +1641,7 @@ class App extends Component {
     let input$ =
       Observable.fromEvent(inputElement, 'input')
         .map(event => event.target.value)
-        .filter(value => value.length > 2)
+        .filter(val => val.length > 2)
         .debounce(() => Observable.interval(500))
 
     input$.subscribe(text => this.setState({ text }))
@@ -1684,16 +1684,12 @@ class App extends Component {
     let input$ =
       Observable.fromEvent(document.querySelector('input'), 'input')
         .map(event => event.target.value)
-        .filter(value => value.length > 2)
+        .filter(val => val.length > 2)
         .debounce(() => Observable.interval(500))
         .flatMap(val => Observable.fromPromise(
           fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
-            .then(res => res.json())
+            .then(response => response.json())
         ))
-
-    input$.subscribe(img => {
-      this.setState({ images: [img, ...this.state.images] })
-    })
   }
 
   render() {
@@ -1733,17 +1729,13 @@ class App extends Component {
     let input$ =
       Observable.fromEvent(document.querySelector('input'), 'input')
         .map(event => event.target.value)
-        .filter(value => value.length > 2)
+        .filter(val => val.length > 2)
         .debounce(() => Observable.interval(500))
         .flatMap(val => Observable.fromPromise(
           fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
-            .then(res => res.json())
+            .then(response => response.json())
         ))
-        .flatMap(val => Observable.from(val.data.children))
-
-    input$.subscribe(img => {
-      this.setState({ images: [img, ...this.state.images] })
-    })
+        .flatMap(json => Observable.from(json.data.children))
   }
 
   render() {
@@ -1783,18 +1775,14 @@ class App extends Component {
     let input$ =
       Observable.fromEvent(document.querySelector('input'), 'input')
         .map(event => event.target.value)
-        .filter(value => value.length > 2)
+        .filter(val => val.length > 2)
         .debounce(() => Observable.interval(500))
         .flatMap(val => Observable.fromPromise(
           fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
-            .then(res => res.json())
+            .then(response => response.json())
         ))
-        .flatMap(val => Observable.from(val.data.children))
+        .flatMap(json => Observable.from(json.data.children))
         .distinct((a, b) => a.data.id === b.data.id)
-
-    input$.subscribe(img => {
-      this.setState({ images: [img, ...this.state.images] })
-    })
   }
 
   render() {
@@ -1834,15 +1822,15 @@ class App extends Component {
     let input$ =
       Observable.fromEvent(document.querySelector('input'), 'input')
         .map(event => event.target.value)
-        .filter(value => value.length > 2)
+        .filter(val => val.length > 2)
         .debounce(() => Observable.interval(500))
         .flatMap(val => Observable.fromPromise(
           fetch("https://www.reddit.com/r/aww/search.json?q=" + val + "&restrict_sr=on")
-            .then(res => res.json())
+            .then(response => response.json())
         ))
-        .flatMap(val => Observable.from(val.data.children))
+        .flatMap(json => Observable.from(json.data.children))
         .distinct((a, b) => a.data.id === b.data.id)
-        .map(val => <img key={val.data.id} src={val.data.thumbnail} />)
+        .map(post => <img key={post.data.id} src={post.data.thumbnail} />)
 
     input$.subscribe(img => {
       this.setState({ images: [img, ...this.state.images] })
@@ -1889,11 +1877,11 @@ class App extends Component {
     let ofFalse$ = input$.map(() => false)
     let appState$ = Observable.merge(ofFalse$, image$)
 
-    appState$.subscribe(state => {
-      if (!state) this.setState({ loading: true })
+    appState$.subscribe(lastValue => {
+      if (!lastValue) this.setState({ loading: true })
       else this.setState({
         loading: false,
-        images: [state, ...this.state.images]
+        images: [lastValue, ...this.state.images]
       })
     })
   }
@@ -1967,6 +1955,54 @@ class App extends Component {
               </Fill>
               <Fill>
                 <Content.Retry />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+class App extends Component {
+  gamble() {
+    let luck$ =
+      Observable.of(1, 2, 3, 4, 5)
+        .map(x => {
+          if (Math.random() > 0.5) throw Error('Better luck next time!')
+          else return x
+        } )
+        .retry(5)
+
+    luck$.subscribe(
+      val => this.setState({ luck: val }),
+      err => this.setState({ luck: err.message }),
+      () => this.setState({ luck: 'We have a winner!' })
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.gamble()}>Gamble</button>
+        {this.state.luck}
+      </div>
+    )
+  }
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.RetrySockets />
               </Fill>
             </Layout>
           </Slide>

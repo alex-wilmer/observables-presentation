@@ -9,6 +9,7 @@ import Awwsearch3 from './Awwsearch3'
 import Awwsearch4 from './Awwsearch4'
 import Awwsearch5 from './Awwsearch5'
 import Retry from './Retry'
+import RetrySockets from './RetrySockets'
 import Basic from './Basic'
 import BasicAsync from './BasicAsync'
 import Share from './Share'
@@ -26,6 +27,7 @@ export {
   Awwsearch4,
   Awwsearch5,
   Retry,
+  RetrySockets,
   Basic,
   BasicAsync,
   Share,
