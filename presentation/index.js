@@ -182,6 +182,10 @@ export default class Presentation extends React.Component {
             <Content.ReactiveAssumption />
           </Slide>
 
+          <Slide transition={["fade"]} bgColor="primary">
+            <Heading textSize="5rem" textColor="black">Observer => Observable</Heading>
+          </Slide>
+
           <Slide transition={["fade"]} bgImage={images.you_and_life.replace("/", "")} bgDarken={0.25}>
             <Heading>&nbsp;</Heading>
             <Heading>You</Heading>
@@ -734,7 +738,7 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["fade"]} bgColor="primary">
-            <Heading textColor="black">Observable Basics</Heading>
+            <Heading textColor="black" textSize="5rem">Observable Basics</Heading>
             <List>
               <ListItem>
                 a <strong>function</strong> that accepts an <strong>Observer</strong> as an argument<br />
@@ -762,7 +766,23 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["fade"]} bgColor="primary">
-            <Heading textColor="black">When it's done.. <br />it's done.</Heading>
+            <Heading textColor="black" textSize="5rem">Observable Basics, cont.</Heading>
+            <List>
+              <ListItem>
+                when observable has nothing left to emit
+              </ListItem>
+              <Appear><ListItem>
+                when the observer has unsubscribed
+              </ListItem></Appear>
+              <Appear><ListItem>
+                <b>no more values should be sent to the observer!</b>
+              </ListItem></Appear>
+            </List>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="primary">
+            <Heading textColor="black" textSize="5rem">Consumer vs Producer</Heading>
+            <Appear><Heading textColor="black" textSize="4rem">(Push vs Pull)</Heading></Appear>
           </Slide>
 
           <Slide transition={["fade"]} bgColor="primary">
@@ -788,6 +808,43 @@ export default class Presentation extends React.Component {
                 <Row style={{ flex: 1, fontSize: `3rem` }}><Appear><b>Observable</b></Appear></Row>
               </Row>
             </Column>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="primary">
+            <Heading textColor="black" textSize="5rem">Just like functions..</Heading>
+            <Heading textColor="black" textSize="5rem">Observables are composable.</Heading>
+            <Appear>
+              <div>
+                <Heading textColor="black" textSize="4rem" style={{marginTop:`2rem`}}>
+                  (Higher Order Observables)
+                </Heading>
+              </div>
+            </Appear>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="primary">
+            <pre style={{fontSize:`2rem`}}>
+ModifiedObservable = clone(SourceObservable)
+            </pre>
+            <Appear><div><pre style={{fontSize:`2rem`, whiteSpace: `pre-wrap`}}>
+SourceObservable(Observer)   // original values
+ModifiedObservable(Observer) // modified values
+            </pre></div></Appear>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="primary">
+            <Heading textColor="black" textSize="5rem">Operators</Heading>
+            <pre style={{fontSize:`2rem`, textAlign: `left`}}>{`
+function clone (SourceObservable) {
+  return function (Observer) {
+    // make a new subscription internally
+    SourceObservable({
+      // forward values to target observer
+      callback: val => Observer(val)
+    })
+  }
+}
+    `}</pre>
           </Slide>
 
           <Slide transition={["fade"]} bgImage={images.checking_email.replace("/", "")} >
