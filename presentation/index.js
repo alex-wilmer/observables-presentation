@@ -951,8 +951,7 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
-            <Heading textSize="3rem">Anatomy of Rx Observer & Observable</Heading>
-            <Row>
+            <Heading textSize="3rem">Anatomy of an Rx Observer </Heading>
             <pre style={{
               textAlign: `left`,
               color: `rgb(235, 240, 23)`,
@@ -965,25 +964,322 @@ observer = {
   complete: () => ...
 }
 `}            </pre>
-  <Appear>
-    <span>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textSize="3rem">Anatomy of an Rx Observervable</Heading>
             <pre style={{
               textAlign: `left`,
               color: `rgb(235, 240, 23)`,
               marginLeft: `3rem`,
               fontSize: `1.4rem`,
             }}>{`
-observervable$.subscribe(observer)
+let subscription1 = observervable$.subscribe(observer)
 
-observervable$.subscribe(
+let subscription2 = observervable$.subscribe(
   val => ...,
   err => ...,
   () => ...
 )
+
+subscription1.unsubscribe()
 `}            </pre>
-  </span>
-</Appear>
-  </Row>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+Observable.range(0, 5)
+  .subscribe(
+    val => console.log(val),
+    err => console.log(err),
+    () => console.log('done!')
+  )
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Basic hide />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+Observable.range(0, 5)
+  .subscribe(
+    val => console.log(val),
+    err => console.log(err),
+    () => console.log('done!')
+  )
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Basic />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+let subscription = Observable.interval(500)
+  .subscribe(
+    val => console.log(val),
+    err => console.log(err),
+    () => console.log('done!')
+  )
+
+setTimeout(() => subscription.unsubscribe(), 1500)
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.BasicAsync hide />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+let subscription = Observable.interval(500)
+  .subscribe(
+    val => console.log(val),
+    err => console.log(err),
+    () => console.log('done!')
+  )
+
+setTimeout(() => subscription.unsubscribe(), 1500)
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.BasicAsync />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+let timer$ = Observable.interval(1000)
+
+timer$.subscribe(val => console.log('First Subscription: ', val))
+
+setTimeout(() => {
+  let subscription =
+    timer$.subscribe(val => console.log('Second Subscription: ', val))
+
+  setTimeout(() => subscription.unsubscribe(), 5000)
+}, 2000)
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Share hide />
+              </Fill>
+            </Layout>
+            <div style={{opacity: 0}}>
+              <Heading textSize="3.5rem" style={{marginTop: `5rem`}}>
+                Rx terminology: "Cold" Observable<br />
+                <span style={{ fontSize: `0.8em`}}>(Observables are "cold" by default)</span>
+              </Heading>
+            </div>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+let timer$ = Observable.interval(1000)
+
+timer$.subscribe(val => console.log('First Subscription: ', val))
+
+setTimeout(() => {
+  let subscription =
+    timer$.subscribe(val => console.log('Second Subscription: ', val))
+
+  setTimeout(() => subscription.unsubscribe(), 5000)
+}, 2000)
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Share />
+              </Fill>
+            </Layout>
+            <Appear>
+              <div>
+                <Heading textSize="3.5rem" style={{marginTop: `5rem`}}>
+                  Rx terminology: "Cold" Observable<br />
+                  <span style={{ fontSize: `0.8em`}}>(Observables are "cold" by default)</span>
+                </Heading>
+              </div>
+            </Appear>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+let timer$ = Observable.interval(1000).share()
+
+timer$.subscribe(val => console.log('First Subscription: ', val))
+
+setTimeout(() => {
+  let subscription =
+    timer$.subscribe(val => console.log('Second Subscription: ', val))
+
+  setTimeout(() => subscription.unsubscribe(), 5000)
+}, 2000)
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.ShareHot hide />
+              </Fill>
+            </Layout>
+            <div style={{ opacity: 0 }}>
+              <Heading textSize="3.5rem" style={{marginTop: `4rem`}}>
+                Rx terminology: "Hot" Observable<br />
+                <span style={{ fontSize: `0.8em`}}>(Think subscribing to a video stream or podcast)</span>
+              </Heading>
+            </div>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `1.1rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+let timer$ = Observable.interval(1000).share()
+
+timer$.subscribe(val => console.log('First Subscription: ', val))
+
+setTimeout(() => {
+  let subscription =
+    timer$.subscribe(val => console.log('Second Subscription: ', val))
+
+  setTimeout(() => subscription.unsubscribe(), 5000)
+}, 2000)
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.ShareHot />
+              </Fill>
+            </Layout>
+            <Appear>
+              <div>
+                <Heading textSize="3.5rem" style={{marginTop: `4rem`}}>
+                  Rx terminology: "Hot" Observable<br />
+                  <span style={{ fontSize: `0.8em`}}>(Think subscribing to a video stream or podcast)</span>
+                </Heading>
+              </div>
+            </Appear>
           </Slide>
 
           <Slide transition={["fade"]} bgColor="#2D2D2D">
@@ -1075,6 +1371,7 @@ x$.subscribe(val => console.log(val))
               }}
               source=
 {`
+import { Observable } from 'rxjs'
 
 class App extends Component {
   componentDidMount() {

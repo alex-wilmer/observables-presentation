@@ -9,6 +9,10 @@ import Awwsearch3 from './Awwsearch3'
 import Awwsearch4 from './Awwsearch4'
 import Awwsearch5 from './Awwsearch5'
 import Retry from './Retry'
+import Basic from './Basic'
+import BasicAsync from './BasicAsync'
+import Share from './Share'
+import ShareHot from './ShareHot'
 
 export {
   Title,
@@ -22,4 +26,8 @@ export {
   Awwsearch4,
   Awwsearch5,
   Retry,
+  Basic,
+  BasicAsync,
+  Share,
+  ShareHot,
 }
