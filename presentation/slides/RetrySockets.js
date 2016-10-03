@@ -9,8 +9,19 @@ export default class App extends Component {
 
   componentDidMount() {
     this.connection$ = Observable.create(observer => {
-      observer.next(new WebSocket('ws://localhost:5000/casino'))
+      let socket = new WebSocket('ws://localhost:5000/casino')
+      observer.next(socket)
+      return () => socket.close()
     })
+
+    let pong$ = Observable.interval(1000)
+      .flatMap(() => Observable.fromPromise(
+        fetch('http://localhost:5000')
+          .then(res => 'pong')
+          .catch(err => {
+            return Observable.throw(new Error(err))
+          })
+      ))
 
     let message$ = this.connection$
       .flatMap(socket => Observable.create(observer =>
@@ -19,14 +30,19 @@ export default class App extends Component {
       .map(event => JSON.parse(event.data))
 
     let newPlayer$ = message$.filter(msg => msg.type === `newPlayer`)
+
+    this.socketSubscription = newPlayer$.filter(msg => msg.type === `newPlayer`)
+      .merge(pong$)
+      .retryWhen(errors => errors)
+      .filter(msg => !msg || msg !== 'pong')
       .subscribe(
-        msg => console.log('player joined', msg.numPlayers)
+        msg => console.log('player joined', msg.numPlayers),
+        err => console.log('err', err.message)
       )
   }
 
   componentWillUnmount() {
-    this.connection$
-      .do(socket => socket.close())
+    this.socketSubscription.unsubscribe()
   }
 
   gamble() {

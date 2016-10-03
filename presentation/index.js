@@ -126,6 +126,30 @@ const images = {
   rxMarbleMerge: require('../assets/rxjs/marbleMerge.png'),
   rxMarbleDelay: require('../assets/rxjs/marbleDelay.png'),
 
+  tc39: require('../assets/tc39.png'),
+  tc392: require('../assets/tc392.png'),
+
+  cycle: require('../assets/cycle.png'),
+  cycle2: require('../assets/cycle2.png'),
+
+  reduxObservable: require('../assets/redux-observable.png'),
+  reduxEpic: require('../assets/redux-epic.png'),
+
+  marbleTest: require('../assets/marbletest.png'),
+  angularob: require('../assets/angularob.png'),
+
+  everything: require('../assets/everything.jpg'),
+  mobx: require('../assets/mobx.png'),
+
+  marbleDiagramAnatomy: require('../assets/marble-diagram-anatomy.svg'),
+
+  merging1: require('../assets/merging1.png'),
+  merging2: require('../assets/merging2.png'),
+  merging3: require('../assets/merging3.png'),
+
+  apm: require('../assets/apm.jpg'),
+
+
 }
 
 preloader(images)
@@ -160,22 +184,53 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide bgColor="#282C34" transition={["fade"]}>
-            <div style={{ display: 'flex', flexDirection: `column`, alignItems: `center` }}>
-              <Heading textSize={`4rem`} margin={`0rem 0rem 4rem 0rem`} textColor="white">
-                Popular Triggers:
-              </Heading>
-              <Code bgColor="transparent" textSize="2.2rem" textColor="rgb(187, 205, 36)">
-                {`$scope.meaningOfTheUniverse = 42`}
-              </Code>
-              <br />
-              <Code bgColor="transparent" textSize="2rem"  textColor="rgb(187, 205, 36)">
-                {`this.setState({ meaningOfTheUniverse: 42 })`}
-              </Code>
-              <br />
-              <Code bgColor="transparent" textSize="2.2rem"  textColor="rgb(187, 205, 36)">
-                {`dispatch(setMeaningOfTheUniverse(42))`}
-              </Code>
-            </div>
+            <Row>
+              <div style={{opacity: `0`}}><b>User Event</b></div>
+              <div style={{ display: 'flex', flexDirection: `column`, alignItems: `center` }}>
+                <Heading textSize={`3rem`} margin={`0rem 0rem 4rem 0rem`} textColor="white">
+                  Popular Triggers:
+                </Heading>
+                <Code bgColor="transparent" textSize="1.4rem" textColor="rgb(187, 205, 36)"
+                  style={{ marginBottom: `1.2rem` }}
+                >
+                  {`$scope.meaningOfTheUniverse = 42`}
+                </Code>
+                <Code bgColor="transparent" textSize="1.4rem"  textColor="rgb(187, 205, 36)"
+                  style={{ marginBottom: `1.2rem` }}
+                >
+                  {`this.setState({ meaningOfTheUniverse: 42 })`}
+                </Code>
+                <Code bgColor="transparent" textSize="1.4rem"  textColor="rgb(187, 205, 36)">
+                  {`dispatch(setMeaningOfTheUniverse(42))`}
+                </Code>
+              </div>
+              <div style={{opacity: `0`}}><b>DOM Update</b></div>
+            </Row>
+          </Slide>
+
+          <Slide bgColor="#282C34" transition={["fade"]}>
+            <Row>
+              <div style={{color: `white`, fontSize:`2rem`}}><b>User Event</b></div>
+              <div style={{ display: 'flex', flexDirection: `column`, alignItems: `center` }}>
+                <Heading textSize={`3rem`} margin={`0rem 0rem 4rem 0rem`} textColor="white">
+                  Popular Triggers:
+                </Heading>
+                <Code bgColor="transparent" textSize="1.4rem" textColor="rgb(187, 205, 36)"
+                  style={{ marginBottom: `1.2rem` }}
+                >
+                  {`$scope.meaningOfTheUniverse = 42`}
+                </Code>
+                <Code bgColor="transparent" textSize="1.4rem"  textColor="rgb(187, 205, 36)"
+                  style={{ marginBottom: `1.2rem` }}
+                >
+                  {`this.setState({ meaningOfTheUniverse: 42 })`}
+                </Code>
+                <Code bgColor="transparent" textSize="1.4rem"  textColor="rgb(187, 205, 36)">
+                  {`dispatch(setMeaningOfTheUniverse(42))`}
+                </Code>
+              </div>
+              <div style={{color: `white`, fontSize:`2rem`}}><b>DOM Update</b></div>
+            </Row>
           </Slide>
 
           <Slide transition={["fade"]} bgColor="primary">
@@ -1029,6 +1084,16 @@ function clone (SourceObservable) {
             </Row>
           </Slide>
 
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textColor="white" textSize="5rem">Combinators</Heading>
+            <pre style={{color: `rgb(235, 240, 23)`, textAlign: `left`}}>[1, 2, 3].concat([4, 5])</pre>
+            <pre style={{color: `rgb(235, 240, 23)`, textAlign: `left`}}>{`> [1, 2, 3, 4, 5]`}</pre>
+            <pre style={{color: `rgb(235, 240, 23)`, textAlign: `left`}}>_.zip([1, 2, 3], [4, 5])</pre>
+            <pre style={{color: `rgb(235, 240, 23)`, textAlign: `left`}}>{`> [1, 4]`}</pre>
+            <pre style={{color: `rgb(235, 240, 23)`, textAlign: `left`}}>{`> [2, 5]`}</pre>
+            <pre style={{color: `rgb(235, 240, 23)`, textAlign: `left`}}>{`> [3, undefined]`}</pre>
+          </Slide>
+
           <Slide transition={["fade"]} bgImage={images.marketing.replace("/", "")} bgDarken={0.45}>
             <Heading textSize="5rem" style={{textAlign: `left`}}>You</Heading>
             <Heading textSize="5rem" style={{textAlign: `left`}}>Observe</Heading>
@@ -1118,11 +1183,19 @@ function clone (SourceObservable) {
           </Slide>
 
           <Slide bgColor="white">
+            <Image src={images.marbleDiagramAnatomy.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
             <Image src={images.rxMarbleMerge.replace("/", "")} width="850px"/>
           </Slide>
 
           <Slide bgColor="white">
             <Image src={images.rxMarbleDelay.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.marbleTest.replace("/", "")} width="850px"/>
           </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
@@ -1160,6 +1233,93 @@ let subscription2 = observervable$.subscribe(
 subscription1.unsubscribe()
 `}            </pre>
           </Slide>
+
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textSize="3rem">Creating Observervable</Heading>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let numbers$ = Observable.create(observer => {
+  [1, 2, 3, 4, 5].forEach(x => observer.next(x))
+})
+`}            </pre>
+<Appear><div>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let numbers$ = Observable.of(1, 2, 3, 4, 5)
+`}            </pre></div></Appear>
+<Appear><div>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let numbers$ = Observable.from([1, 2, 3, 4, 5])
+`}            </pre></div></Appear>
+<Appear><div>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let numbers$ = Observable.range(1, 6)
+`}            </pre></div></Appear>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
+            <Heading textSize="3rem">Creating Observervable</Heading>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let button = document.querySelector('button')
+let click$ = Observable.fromEvent(button, 'click')
+`}            </pre>
+<Appear><div>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let promise$ = Observable.fromPromise(
+  fetch(url)
+    .then(res => res.json())
+    .catch(err => Observable.throw(err))
+)
+`}            </pre></div></Appear>
+<Appear><div>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let data$$ = click$.map(event => data$)
+`}            </pre></div></Appear>
+<Appear><div>
+            <pre style={{
+              textAlign: `left`,
+              color: `rgb(235, 240, 23)`,
+              marginLeft: `3rem`,
+              fontSize: `1.4rem`,
+            }}>{`
+let data$ = data$.flatMap(data$$)
+`}            </pre></div></Appear>
+
+          </Slide>
+
 
           <Slide transition={["fade"]} bgColor="#2D2D2D">
             <Layout>
@@ -1463,6 +1623,18 @@ setTimeout(() => {
             </Heading>
           </Slide>
 
+          <Slide transition={["fade"]} bgColor="#263238">
+            <BlockQuote>
+              <Quote textSize="2.5rem" style={{ lineHeight: `1.3`}}>
+              The hardest part of the learning journey is thinking in Reactive.
+              <br />
+              <br />
+              It's a lot about letting go of old imperative and stateful habits of typical
+              programming, and forcing your brain to work in a different paradigm.</Quote>
+              <Cite>Andre Staltz (founder of Cycle.js, RxJS core contributor)</Cite>
+            </BlockQuote>
+          </Slide>
+
           <Slide transition={["fade"]} bgColor="#2D2D2D">
             <CodePane
               lang="jsx"
@@ -1522,6 +1694,61 @@ let x$ = Observable.combineLatest(a$, b$, (x, y) => x + y)
 x$.subscribe(val => console.log(val))
 `}
   />
+          </Slide>
+
+          <Slide transition={["fade"]} bgImage={images.apm.replace("/", "")} bgDarken={0.45}>
+            <Heading textSize="5rem" style={{textAlign: `left`, marginTop: `17rem`}}>You</Heading>
+            <Heading textSize="5rem" style={{textAlign: `left`}}>Observe</Heading>
+            <Heading textSize="4.1rem" style={{textAlign: `left`}}>
+              Your APM <span style={{fontSize: `0.8em`}}>(Actions Per Minutes)</span>
+            </Heading>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+              <CodePane
+                lang="jsx"
+                style={{
+                  color: `white`,
+                  fontSize: `0.95rem`,
+                  textAlign: `left`,
+                  marginLeft: `-8rem`,
+                  marginTop: `-3rem`,
+              }}
+              source=
+{`
+import { Observable } from 'rxjs'
+
+class App extends Component {
+  componentDidMount() {
+    let button = document.querySelector('button')
+    let click$ = Observable.fromEvent(button, 'click')
+
+    let multiClick$ = click$
+      .bufferWhen(() => click$.delay(250))
+      .map(buffer => buffer.length)
+
+    multiClick$.subscribe(numClicks => {
+      this.setState({ text: numClicks + 'x click'})
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <button>Click me!</button>
+        {this.state.text}
+      </div>
+    )
+  }
+`}
+                />
+              </Fill>
+              <Fill>
+                <Content.Apm />
+              </Fill>
+            </Layout>
           </Slide>
 
           <Slide transition={["fade"]} bgImage={images.cutecat.replace("/", "")} bgDarken={0.45}>
@@ -1903,6 +2130,10 @@ class App extends Component {
             </Layout>
           </Slide>
 
+          <Slide transition={["fade"]} bgImage={images.merging1.replace("/", "")} />
+          <Slide transition={["fade"]} bgImage={images.merging2.replace("/", "")} />
+          <Slide transition={["fade"]} bgImage={images.merging3.replace("/", "")} />
+
           <Slide transition={["fade"]} bgImage={images.gambling.replace("/", "")} bgDarken={0.45}>
             <Heading textSize="5rem" style={{textAlign: `left`, marginTop: `17rem`}}>You</Heading>
             <Heading textSize="5rem" style={{textAlign: `left`}}>Observe</Heading>
@@ -2007,6 +2238,43 @@ class App extends Component {
             </Layout>
           </Slide>
 
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Heading textSize="5rem">Observables In The Wild</Heading>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#BF1E2E">
+            <Image src={images.angularob.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="white">
+            <Image src={images.reduxObservable.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="white">
+            <Image src={images.reduxEpic.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.mobx.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide transition={["fade"]} bgImage={images.cycle.replace("/", "")}  />
+          <Slide transition={["fade"]} bgImage={images.cycle2.replace("/", "")}  />
+
+          <Slide transition={["fade"]} bgColor="white">
+            <Image src={images.tc39.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image src={images.tc392.replace("/", "")} width="850px"/>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#263238">
+            <Heading textColor="white">
+              Final Act: <br />
+              <Image src={images.everything.replace("/", "")} width="450px"/>
+            </Heading>
+          </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(74, 22, 84)">
             <Content.Bio />

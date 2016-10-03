@@ -46,8 +46,7 @@ You.hitSnooze = MorningAlarm(You)
 // 3
 
 function MorningAlarm (You) {
-  let id, numberOfBrings = 0, snoozeCount = 0,
-    dismissed = false
+  let id, numberOfBrings = 0, snoozeCount = 0
 
   function startAlarm () {
     id = setInterval(() => {

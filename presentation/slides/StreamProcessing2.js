@@ -56,17 +56,17 @@ ModifiedObservable({
   log: x => console.log('finished! ', x)
 })
 
-> odd: 1
-> addOne:  1
-VM6116:42 sum : 4
-VM6116:56 finished!  4
-VM6116:37 odd:  2
-VM6116:37 odd:  3
-VM6116:32 addOne:  3
-VM6116:42 sum : 8
-VM6116:56 finished!  8
-VM6116:37 odd:  4
-VM6116:37 odd:  5
-VM6116:32 addOne:  5
-VM6116:42 sum : 12
-VM6116:56 finished!  12
+{`> odd: 1`}
+{`> addOne: 1`}
+{`> sum: 4`}
+{`> finished! 4`}
+{`> odd: 2`}
+{`> odd: 3`}
+{`> addOne: 3`}
+{`> sum: 8`}
+{`> finished! 8`}
+{`> odd: 4`}
+{`> odd: 5`}
+{`> addOne: 5`}
+{`> sum: 12`}
+{`> finished!  12`}

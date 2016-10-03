@@ -4,7 +4,10 @@ var server = require('http').createServer()
   , wss = new WebSocketServer({ server: server, path: "/casino" })
   , express = require('express')
   , app = express()
-  , port = 5000;
+  , port = 5000
+  , cors = require('cors')
+
+app.use(cors())
 
 app.use(function (req, res) {
   res.send({ msg: "hello" });

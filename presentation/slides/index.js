@@ -14,6 +14,7 @@ import Basic from './Basic'
 import BasicAsync from './BasicAsync'
 import Share from './Share'
 import ShareHot from './ShareHot'
+import Apm from './Apm'
 
 export {
   Title,
@@ -32,4 +33,5 @@ export {
   BasicAsync,
   Share,
   ShareHot,
+  Apm,
 }
