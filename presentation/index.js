@@ -149,6 +149,7 @@ const images = {
 
   apm: require('../assets/apm.jpg'),
 
+  thought$: require('../assets/thought$.jpg'),
 
 }
 
@@ -318,7 +319,6 @@ export default class Presentation extends React.Component {
                   bottom: `70px`,
                 }}
               >
-                {`<-- subscribe function`}
               </span>
             </Text>
             <div style={{ position: `absolute`, right: 0, bottom: `20px`, textAlign: `left`, color: `white` }}>
@@ -1215,7 +1215,7 @@ observer = {
           </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
-            <Heading textSize="3rem">Anatomy of an Rx Observervable</Heading>
+            <Heading textSize="3rem">Anatomy of an Rx Observable</Heading>
             <pre style={{
               textAlign: `left`,
               color: `rgb(235, 240, 23)`,
@@ -1235,7 +1235,7 @@ subscription1.unsubscribe()
           </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
-            <Heading textSize="3rem">Creating Observervable</Heading>
+            <Heading textSize="3rem">Creating Observable</Heading>
             <pre style={{
               textAlign: `left`,
               color: `rgb(235, 240, 23)`,
@@ -1276,7 +1276,7 @@ let numbers$ = Observable.range(1, 6)
           </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(31, 105, 87)">
-            <Heading textSize="3rem">Creating Observervable</Heading>
+            <Heading textSize="3rem">Creating Observable</Heading>
             <pre style={{
               textAlign: `left`,
               color: `rgb(235, 240, 23)`,
@@ -1306,7 +1306,7 @@ let promise$ = Observable.fromPromise(
               marginLeft: `3rem`,
               fontSize: `1.4rem`,
             }}>{`
-let data$$ = click$.map(event => data$)
+let data$$ = click$.map(event => promise$)
 `}            </pre></div></Appear>
 <Appear><div>
             <pre style={{
@@ -2205,30 +2205,82 @@ class App extends Component {
                 source=
 {`
 class App extends Component {
-  gamble() {
-    let luck$ =
-      Observable.of(1, 2, 3, 4, 5)
-        .map(x => {
-          if (Math.random() > 0.5) throw Error('Better luck next time!')
-          else return x
-        } )
-        .retry(5)
+  componentDidMount() {
+    this.connection$ = Observable.create(observer => {
+      let socket = new WebSocket('ws://localhost:5000/casino')
+      observer.next(socket)
+      return () => socket.close()
+    })
 
-    luck$.subscribe(
-      val => this.setState({ luck: val }),
-      err => this.setState({ luck: err.message }),
-      () => this.setState({ luck: 'We have a winner!' })
-    )
+    let message$ = this.connection$
+      .flatMap(socket => Observable.create(observer =>
+        socket.onmessage = event => observer.next(event))
+      )
+      .map(event => JSON.parse(event.data))
+
+    this.socketSubscription = message$
+      .subscribe(
+        msg => {
+          switch (msg.type) {
+            case 'newPlayer':
+              return this.setState({ numPlayers: msg.numPlayers })
+            case 'gameover':
+              return this.setState({ gameover: true })
+          }
+        }
+      )
   }
 
-  render() {
-    return (
-      <div>
-        <button onClick={() => this.gamble()}>Gamble</button>
-        {this.state.luck}
-      </div>
-    )
+  componentWillUnmount() {
+    this.socketSubscription.unsubscribe()
   }
+}
+`} />
+
+              </Fill>
+              <Fill>
+                <Content.RetrySockets />
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide transition={["fade"]} bgColor="#2D2D2D">
+            <Layout>
+              <Fill>
+                <CodePane
+                  lang="jsx"
+                  style={{
+                    color: `white`,
+                    fontSize: `0.9rem`,
+                    textAlign: `left`,
+                    marginLeft: `-8rem`,
+                    marginTop: `-3rem`,
+                }}
+                source=
+{`
+class App extends Component {
+  componentDidMount() {
+    this.connection$ = Observable.create(observer => {
+      let socket = new WebSocket('ws://localhost:5000/casino')
+      observer.next(socket)
+      return () => socket.close()
+    })
+
+    let message$ = this.connection$...
+
+    let pong$ = Observable.interval(1000)
+      .flatMap(() => Observable.fromPromise(
+        fetch('http://localhost:5000')
+          .then(res => 'pong')
+          .catch(err => throw new Error('server is down!'))
+      ))
+
+    this.socketSubscription = message$
+      .merge(pong$)
+      .retryWhen(error => !!error)
+      .subscribe(...)
+  }
+}
 `} />
 
               </Fill>
@@ -2274,6 +2326,10 @@ class App extends Component {
               Final Act: <br />
               <Image src={images.everything.replace("/", "")} width="450px"/>
             </Heading>
+          </Slide>
+
+          <Slide bgColor="#263238">
+            <Image src={images.thought$.replace("/", "")} width="850px"/>
           </Slide>
 
           <Slide transition={["fade"]} bgColor="rgb(74, 22, 84)">

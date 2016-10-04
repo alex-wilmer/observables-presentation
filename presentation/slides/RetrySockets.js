@@ -4,14 +4,17 @@ import { Observable, Scheduler } from 'rxjs'
 export default class App extends Component {
   constructor() {
     super()
-    this.state = { text: '' }
+    this.state = {
+      numPlayers: 0,
+      text: '',
+    }
   }
 
   componentDidMount() {
     this.connection$ = Observable.create(observer => {
-      let socket = new WebSocket('ws://localhost:5000/casino')
-      observer.next(socket)
-      return () => socket.close()
+      this.socket = new WebSocket('ws://localhost:5000/casino')
+      observer.next(this.socket)
+      return () => this.socket.close()
     })
 
     let pong$ = Observable.interval(1000)
@@ -19,7 +22,8 @@ export default class App extends Component {
         fetch('http://localhost:5000')
           .then(res => 'pong')
           .catch(err => {
-            return Observable.throw(new Error(err))
+            this.setState({ serverDown: true })
+            throw new Error('server is down!')
           })
       ))
 
@@ -29,14 +33,24 @@ export default class App extends Component {
       )
       .map(event => JSON.parse(event.data))
 
-    let newPlayer$ = message$.filter(msg => msg.type === `newPlayer`)
-
-    this.socketSubscription = newPlayer$.filter(msg => msg.type === `newPlayer`)
+    this.socketSubscription = message$
       .merge(pong$)
       .retryWhen(errors => errors)
+      .do(() => this.setState({ serverDown: false }))
       .filter(msg => !msg || msg !== 'pong')
       .subscribe(
-        msg => console.log('player joined', msg.numPlayers),
+        msg => {
+          switch (msg.type) {
+            case 'newPlayer': {
+              console.log('player joined', msg.numPlayers)
+              this.setState({ numPlayers: msg.numPlayers })
+              break
+            }
+            case 'gameover': {
+              this.setState({ gameover: true })
+            }
+          }
+        },
         err => console.log('err', err.message)
       )
   }
@@ -71,35 +85,60 @@ export default class App extends Component {
           <div>{err.message}</div>
         </span>
       }),
-      () => this.setState({ text:
-        <span>
-          <div>{this.state.text}</div>
-          <div>We have a winner!</div>
-        </span> })
+      () => {
+        this.socket.send(JSON.stringify({ type: `win` }))
+        this.setState({ winner: true, text:
+          <span>
+            <div>{this.state.text}</div>
+            <div>We have a winner!</div>
+          </span> })
+      }
     )
   }
 
   render() {
     return (
       <div>
-        <button
-          style={{
-            backgroundColor: `rgb(228, 163, 37)`,
-            color: `black`,
-            border: `none`,
-            borderRadius: `5px`,
-            outline: `none`,
-          }}
-          onClick={() => {
-          this.setState({ text: `` })
-          this.gamble();
-        }}><b>Gamble</b></button>
+       {this.state.serverDown &&
+         <div style={{color:`white`}}>
+           The server is down! ⌛
+         </div>
+       }
+        {this.state.numPlayers === 1 && !this.state.gameover && !this.state.serverDown &&
+          <div style={{color: `white`}}>Waiting for a challenger!</div>
+        }
+        {this.state.numPlayers === 2 && !this.state.gameover && !this.state.serverDown &&
+          <div>
+            <div style={{color: `white`, marginBottom: `3rem`}}>Challenger has arrived!</div>
+            <button
+              style={{
+                backgroundColor: `rgb(228, 163, 37)`,
+                color: `black`,
+                border: `none`,
+                borderRadius: `5px`,
+                outline: `none`,
+              }}
+              onClick={() => {
+              this.setState({ text: `` })
+              this.gamble();
+            }}><b>Gamble</b></button>
 
-        <br />
+            <br />
 
-        <div style={{ color: `white`, marginTop: `2rem` }}>
-          {this.state.text}
-        </div>
+            <div style={{ color: `white`, marginTop: `2rem` }}>
+              {this.state.text}
+            </div>
+          </div>
+        }
+        {this.state.gameover && !this.state.winner && !this.state.serverDown &&
+          <div style={{color:`white`}}>You lose all your money!</div>
+        }
+
+        {this.state.winner && !this.state.serverDown &&
+          <div style={{ color: `white`, marginTop: `2rem` }}>
+            {this.state.text}
+          </div>
+        }
       </div>
     )
   }

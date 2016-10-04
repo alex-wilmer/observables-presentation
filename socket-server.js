@@ -16,17 +16,33 @@ app.use(function (req, res) {
 let clients = 0
 
 wss.on('connection', function connection(ws) {
-  console.log('connection made')
+  console.log('Connection')
 
   clients++
 
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
+  ws.on('message', m => {
+    let msg = JSON.parse(m)
+
+    console.log('..', msg.type)
+    if (msg.type === `win`) {
+      wss.clients.forEach(client => {
+        client.send(JSON.stringify({
+          type: `gameover`,
+        }));
+      });
+    }
   });
 
   ws.on('close', function () {
-    console.log('closedddd.....')
+    console.log('Disconnection...')
     clients--
+
+    wss.clients.forEach(client => {
+      client.send(JSON.stringify({
+        type: `newPlayer`,
+        numPlayers: clients,
+      }));
+    });
   });
 
   wss.clients.forEach(client => {
